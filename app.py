@@ -1,6 +1,7 @@
 import streamlit as st
 import socket
 import struct
+import time  # Ajout de l'import time
 
 # -- Utility functions --
 def calc_lrc(data: bytes) -> bytes:
@@ -82,9 +83,9 @@ amount_eur = st.sidebar.number_input("Montant (€)", value=10.0, step=0.01, for
 
 if st.sidebar.button("Envoyer la transaction"):
     amount_cents = int(amount_eur * 100)
-    st.info(f"Envoi de la transaction de {amount_eur:.2f} € au TPE {ip}:{port}...")
+    st.info(f"Envoi de la transaction de {amount_eur:.2f} € au TPE {ip}:{port}...")
     status = send_payment_request(ip, port, amount_cents)
-    if status.lower() in ['accepted', 'ok', 'autorisÃ©', 'autorisé']:
-        st.success(f"Statut de paiement : {status}")
+    if status.lower() in ['accepted', 'ok', 'autorisé', 'autorisé']:
+        st.success(f"Statut de paiement : {status}")
     else:
-        st.error(f"Statut de paiement : {status}")
+        st.error(f"Statut de paiement : {status}")
